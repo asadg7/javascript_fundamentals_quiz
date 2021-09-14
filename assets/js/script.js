@@ -28,10 +28,6 @@ var clearScoresBtnEl = document.getElementById("clear-scores");
 
 
 
-
-
-
-
 var questionSet = [
     {
         question: "Commonly used data types do NOT include: ",
@@ -71,7 +67,7 @@ var startTimer = function() {
 
     var timeInterval = setInterval(function() {
         if (timeLeft >= 1) {
-            // display timer
+            timerEl.textContent = "Time Remaining: " + timeLeft;
             timeLeft--;
         }
         else {
@@ -81,5 +77,20 @@ var startTimer = function() {
     }, 1000);
 }
 
+var generateQuestion = function() {
 
+    for (i = 0; i < questionSet.length; i++) {
+        questionsEl.textContent = questionSet[i].question;
+        answerBtnOneEl.textContent = questionSet[i].answers[0];
+        answerBtnTwoEl.textContent = questionSet[i].answers[1];
+        answerBtnThreeEl.textContent = questionSet[i].answers[2];
+        answerBtnFourEl.textContent = questionSet[i].answers[3];
+    }
+}
 
+var startQuiz = function() {
+    // hide other content
+
+}
+
+generateQuestion();
