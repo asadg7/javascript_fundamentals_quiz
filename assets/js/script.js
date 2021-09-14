@@ -61,14 +61,23 @@ var questionSet = [
     }
 ]
 
+// Global variables
+
+var currentQuestionIndex = 0;
+var playerScore = 0;
+var timeLeft = 100;
+
+
 // Timer function
 var startTimer = function() {
-    var timeLeft = 100;
 
     var timeInterval = setInterval(function() {
         if (timeLeft >= 1) {
             timerEl.textContent = "Time Remaining: " + timeLeft;
             timeLeft--;
+        }
+        else if (currentQuestionIndex === questionSet.length) {
+            clearInterval(timeInterval);
         }
         else {
             clearInterval(timeInterval);
@@ -77,20 +86,48 @@ var startTimer = function() {
     }, 1000);
 }
 
-var generateQuestion = function() {
+var generateQuestion = function(count) {
 
-    for (i = 0; i < questionSet.length; i++) {
-        questionsEl.textContent = questionSet[i].question;
-        answerBtnOneEl.textContent = questionSet[i].answers[0];
-        answerBtnTwoEl.textContent = questionSet[i].answers[1];
-        answerBtnThreeEl.textContent = questionSet[i].answers[2];
-        answerBtnFourEl.textContent = questionSet[i].answers[3];
+    if (count < questionSet.length) {
+        questionsEl.textContent = questionSet[count].question;
+        answerBtnOneEl.textContent = questionSet[count].answers[0];
+        answerBtnTwoEl.textContent = questionSet[count].answers[1];
+        answerBtnThreeEl.textContent = questionSet[count].answers[2];
+        answerBtnFourEl.textContent = questionSet[count].answers[3];
     }
+}
+
+var checkAnswer = function(event) {
+    event.preventDefault();
+
+    if (questionSet[currentQuestionIndex].correctAnswer === event.target.textContent) {
+        resultValueEl.innerHTML = "<p>Correct!</p>";
+        playerScore++;
+    }
+    else if (questionSet[currentQuestionIndex].correctAnswer !== event.target.textContent) {
+        resultValueEl.innerHTML = "<p>Incorrect.</p>";
+        timeLeft = timeLeft - 10;
+    }
+
+    if (currentQuestionIndex < questionSet.length) {
+        currentQuestionIndex++;
+    }
+
+    generateQuestion(currentQuestionIndex);
 }
 
 var startQuiz = function() {
     // hide other content
 
+    startTimer();
+    generateQuestion(currentQuestionIndex);
+
 }
 
-generateQuestion();
+startBtnEl.addEventListener("click", startQuiz);
+answerBtnOneEl.addEventListener("click", checkAnswer);
+answerBtnTwoEl.addEventListener("click", checkAnswer);
+answerBtnThreeEl.addEventListener("click", checkAnswer);
+answerBtnFourEl.addEventListener("click", checkAnswer);
+
+
