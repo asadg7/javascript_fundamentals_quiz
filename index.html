@@ -5,6 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Test Your Knowledge</title>
+    <!-- Adding custom fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./assets/css/style.css"/>
 </head>
 <body>
@@ -16,7 +20,7 @@
         <section id="start-page">
             <h1>Javascript Fundamentals Quiz</h1>
             <p>
-                This quiz consists of 6 questions. You will have 100 seconds to complete all questions.</br> 
+                This quiz consists of 6 questions. You will have <span id="red-2">100</span> seconds to complete all questions.</br> 
                 If you answer a question incorrectly, 10 seconds will be deducted from the timer. Good Luck!
             </p>
             <!-- Insert button to start the quiz -->
@@ -24,8 +28,8 @@
         </section>
         
         <section id="quiz">
-            <div id="show-timer">Time Remaining: 100</div>
-            <div id="show-questions"><p>placeholder text</p></div>
+            <div id="show-timer">Time Remaining: <span id="red">100</span></div>
+            <div><p id="show-questions">placeholder text</p></div>
             <button id="answer-1">1</button>
             <button id="answer-2">2</button>
             <button id="answer-3">3</button>

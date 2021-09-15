@@ -11,7 +11,7 @@ var viewScoresButton = document.getElementById("btn-high-scores");
 var quizBody = document.getElementById("quiz");
 // Div that displays the timer
 var timerEl = document.getElementById("show-timer");
-// Div that displays the question
+// <p> tag that displays the question
 var questionsEl = document.getElementById("show-questions");
 // Button for answer 1
 var answerButton1 = document.getElementById("answer-1");
@@ -93,7 +93,8 @@ var startTimer = function() {
         }
         else if (timeLeft >= 1) {
             timeLeft--;
-            timerEl.textContent = "Time Remaining: " + timeLeft;
+            var redNumber = document.getElementById("red");
+            redNumber.textContent = timeLeft;
         }
         else if (timeLeft === 0) {
             clearInterval(timeInterval);
