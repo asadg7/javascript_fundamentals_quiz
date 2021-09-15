@@ -209,6 +209,7 @@ var playAgain = function() {
 }
 
 var toggleScores = function() {
+
     if (highScoresBody.style.display === "none") {
         highScoresBody.style.display = "block";
     }
