@@ -96,6 +96,7 @@ var startTimer = function() {
             timerEl.textContent = "Time Remaining: " + timeLeft;
         }
         else if (timeLeft === 0) {
+            clearInterval(timeInterval);
             gameOver();
         }
         else {
@@ -159,17 +160,20 @@ var gameOver = function() {
 }
 
 var addScore = function() {
-    highScoresList.push({
-        name: playerInput.value,
-        score: playerScore
-    });
 
-    listScoresEl.innerHTML = "";
-    for (i = 0; i < highScoresList.length; i++) {
-        var li = document.createElement("li");
-        li.textContent = highScoresList[i].name + ": " + highScoresList[i].score;
-        listScoresEl.appendChild(li);
+    if (playerInput.value === "") {
+        alert("Please enter your name or initials!");
+        return;
     }
+    else {
+        highScoresList = JSON.parse(localStorage.getItem("Player's High Scores")) || [];
+    }
+    
+    highScoresList.push({
+    name: playerInput.value,
+    score: playerScore
+    });
+    
     
     saveScore();
     viewScores();
@@ -183,12 +187,12 @@ var viewScores = function() {
     gameOverBody.style.display = "none";
     highScoresBody.style.display = "block";
 
-    var storedScoresList = JSON.parse(localStorage.getItem("Player's High Scores"));
-    
-    if (storedScoresList !== null) {
-        highScoresList = storedScoresList;
+    listScoresEl.innerHTML = "";
+    for (i = 0; i < highScoresList.length; i++) {
+        var newLi = document.createElement("li");
+        newLi.textContent = highScoresList[i].name + ": " + highScoresList[i].score;
+        listScoresEl.appendChild(newLi);
     }
-
 }
 
 var clearScore = function() {
