@@ -1,46 +1,46 @@
 // Setting Variables for Document Manipulation
 
-// Div that holds all the startpage content
-var startpageBodyEl = document.getElementById("start-page");
+// Section that holds all the startpage content
+var startPageBody = document.getElementById("start-page");
 // Start Button
-var startBtnEl = document.getElementById("btn-start");
+var startButton = document.getElementById("btn-start");
 // View High Scores Button
-var highScoresBtnEl = document.getElementById("btn-high-scores");
+var viewScoresButton = document.getElementById("btn-high-scores");
 
-// Div that holds all the Quiz content
-var quizBodyEl = document.getElementById("quiz");
+// Section that holds all the Quiz content
+var quizBody = document.getElementById("quiz");
 // Div that displays the timer
 var timerEl = document.getElementById("show-timer");
 // Div that displays the question
 var questionsEl = document.getElementById("show-questions");
 // Button for answer 1
-var answerBtnOneEl = document.getElementById("answer-1");
+var answerButton1 = document.getElementById("answer-1");
 // Button for answer 2
-var answerBtnTwoEl = document.getElementById("answer-2");
+var answerButton2 = document.getElementById("answer-2");
 // Button for answer 3
-var answerBtnThreeEl = document.getElementById("answer-3");
+var answerButton3 = document.getElementById("answer-3");
 // Button for answer 4
-var answerBtnFourEl = document.getElementById("answer-4");
+var answerButton4 = document.getElementById("answer-4");
 // Div that displays correct or incorrect after each question
-var resultValueEl = document.getElementById("question-result");
+var questionResultEl = document.getElementById("question-result");
 
-// Div that holds all the Gameover content
-var gameOverBodyEl = document.getElementById("game-over");
+// Section that holds all the Gameover content
+var gameOverBody = document.getElementById("game-over");
 // Div that displays the user's score
-var displayScoreEl = document.getElementById("show-score");
+var showScoreEl = document.getElementById("show-score");
 // Input form for the user to enter their initials
-var playerInputEl = document.getElementById("player-initials");
+var playerInput = document.getElementById("player-initials");
 // Button to save user's score
-var saveScoreBtnEl = document.getElementById("save-score");
+var saveScoreButton = document.getElementById("save-score");
 
-// Div that holds all the high scores content
-var highScoresBodyEl = document.getElementById("high-scores");
+// Section that holds all the high scores content
+var highScoresBody = document.getElementById("high-scores");
 // Ordered list that displays the user's high scores
 var listScoresEl = document.getElementById("list-scores");
 // Button to return to startpage and play again
-var playAgainBtnEl = document.getElementById("play-again");
+var playAgainButton = document.getElementById("play-again");
 // Button to delete all saved scores
-var clearScoresBtnEl = document.getElementById("clear-scores");
+var clearScoresButton = document.getElementById("clear-scores");
 
 // Main Array of Objects
 var questionSet = [
@@ -96,11 +96,10 @@ var startTimer = function() {
             timerEl.textContent = "Time Remaining: " + timeLeft;
         }
         else if (timeLeft === 0) {
-            displayScore();
+            gameOver();
         }
         else {
             clearInterval(timeInterval);
-            // Game over function
         }
     }, 1000);
 }
@@ -109,25 +108,29 @@ var generateQuestion = function(count) {
 
     if (count < questionSet.length) {
         questionsEl.textContent = questionSet[count].question;
-        answerBtnOneEl.textContent = questionSet[count].answers[0];
-        answerBtnTwoEl.textContent = questionSet[count].answers[1];
-        answerBtnThreeEl.textContent = questionSet[count].answers[2];
-        answerBtnFourEl.textContent = questionSet[count].answers[3];
+        answerButton1.textContent = questionSet[count].answers[0];
+        answerButton2.textContent = questionSet[count].answers[1];
+        answerButton3.textContent = questionSet[count].answers[2];
+        answerButton4.textContent = questionSet[count].answers[3];
     }
     else {
-        displayScore();
+        gameOver();
     }
 }
 
 var checkAnswer = function(event) {
     event.preventDefault();
 
+    setTimeout(function() {
+        questionResultEl.innerHTML = "";
+    }, 1000);
+
     if (questionSet[currentQuestionIndex].correctAnswer === event.target.textContent) {
-        resultValueEl.innerHTML = "<p>Correct!</p>";
+        questionResultEl.innerHTML = "<p>Correct!</p>";
         playerScore++;
     }
     else if (questionSet[currentQuestionIndex].correctAnswer !== event.target.textContent) {
-        resultValueEl.innerHTML = "<p>Incorrect.</p>";
+        questionResultEl.innerHTML = "<p>Incorrect.</p>";
         timeLeft = timeLeft - 10;
     }
 
@@ -140,28 +143,24 @@ var checkAnswer = function(event) {
 
 var startQuiz = function() {
     // hide other content
-    startpageBodyEl.style.display = "none";
-    highScoresBodyEl.style.display = "none";
-    gameOverBodyEl.style.display = "none";
-    quizBodyEl.style.display = "block";
+    startPageBody.style.display = "none";
+    quizBody.style.display = "block";
 
     startTimer();
     generateQuestion(currentQuestionIndex);
 
 }
 
-var displayScore = function() {
-    startpageBodyEl.style.display = "none";
-    quizBodyEl.style.display = "none";
-    highScoresBodyEl.style.display = "none";
-    gameOverBodyEl.style.display = "block";
-    displayScoreEl.textContent = "You answered " + playerScore + " question(s) correctly out of " + questionSet.length + "!"; 
+var gameOver = function() {
+    quizBody.style.display = "none";
+    gameOverBody.style.display = "block";
+    showScoreEl.textContent = "You answered " + playerScore + " question(s) correctly out of " + questionSet.length + "!"; 
     
 }
 
 var addScore = function() {
     highScoresList.push({
-        name: playerInputEl.value,
+        name: playerInput.value,
         score: playerScore
     });
 
@@ -181,13 +180,13 @@ var saveScore = function() {
 }
 
 var viewScores = function() {
-    gameOverBodyEl.style.display = "none";
-    highScoresBodyEl.style.display = "block";
+    gameOverBody.style.display = "none";
+    highScoresBody.style.display = "block";
 
     var storedScoresList = JSON.parse(localStorage.getItem("Player's High Scores"));
     
     if (storedScoresList !== null) {
-    highScoresList = storedScoresList;
+        highScoresList = storedScoresList;
     }
 
 }
@@ -198,35 +197,35 @@ var clearScore = function() {
 }
 
 var playAgain = function() {
-    highScoresBodyEl.style.display = "none";
-    startpageBodyEl.style.display = "block";
+    highScoresBody.style.display = "none";
+    startPageBody.style.display = "block";
     currentQuestionIndex = 0;
     playerScore = 0;
     timeLeft = 100;
 }
 
 var toggleScores = function() {
-    if (highScoresBodyEl.style.display === "none") {
-        highScoresBodyEl.style.display = "block";
+    if (highScoresBody.style.display === "none") {
+        highScoresBody.style.display = "block";
     }
-    else if (highScoresBodyEl.style.display === "block") {
-        highScoresBodyEl.style.display = "none";
+    else if (highScoresBody.style.display === "block") {
+        highScoresBody.style.display = "none";
     }
 }
 
 
-startBtnEl.addEventListener("click", startQuiz);
-answerBtnOneEl.addEventListener("click", checkAnswer);
-answerBtnTwoEl.addEventListener("click", checkAnswer);
-answerBtnThreeEl.addEventListener("click", checkAnswer);
-answerBtnFourEl.addEventListener("click", checkAnswer);
+startButton.addEventListener("click", startQuiz);
+answerButton1.addEventListener("click", checkAnswer);
+answerButton2.addEventListener("click", checkAnswer);
+answerButton3.addEventListener("click", checkAnswer);
+answerButton4.addEventListener("click", checkAnswer);
 
-saveScoreBtnEl.addEventListener("click", addScore);
+saveScoreButton.addEventListener("click", addScore);
 
-clearScoresBtnEl.addEventListener("click", clearScore);
+clearScoresButton.addEventListener("click", clearScore);
 
-playAgainBtnEl.addEventListener("click", playAgain);
+playAgainButton.addEventListener("click", playAgain);
 
-highScoresBodyEl.addEventListener("click", toggleScores);
+viewScoresButton.addEventListener("click", toggleScores);
 
 

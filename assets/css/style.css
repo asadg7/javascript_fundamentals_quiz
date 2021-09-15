@@ -1,0 +1,7 @@
+/* Hide All sub sections on page startup */
+
+#quiz,
+#game-over,
+#high-scores {
+    display: none;
+}
