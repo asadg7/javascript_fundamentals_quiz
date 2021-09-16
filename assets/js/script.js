@@ -11,7 +11,7 @@ var viewScoresButton = document.getElementById("btn-high-scores");
 var quizBody = document.getElementById("quiz");
 // Div that displays the timer
 var timerEl = document.getElementById("show-timer");
-// <p> tag that displays the question
+// Div that displays the question
 var questionsEl = document.getElementById("show-questions");
 // Button for answer 1
 var answerButton1 = document.getElementById("answer-1");
@@ -83,6 +83,10 @@ var playerScore = 0;
 var timeLeft = 100;
 var highScoresList = [];
 
+// document.addEventListener("load", function () {
+//     highScoresBody.style.display = "none";
+// });
+
 
 // Timer function
 var startTimer = function() {
@@ -132,7 +136,7 @@ var checkAnswer = function(event) {
         playerScore++;
     }
     else if (questionSet[currentQuestionIndex].correctAnswer !== event.target.textContent) {
-        questionResultEl.innerHTML = "<p>Incorrect.</p>";
+        questionResultEl.innerHTML = "<p>Incorrect. Minus <span id='red-2'>10</span> seconds</p>";
         timeLeft = timeLeft - 10;
     }
 
@@ -146,7 +150,7 @@ var checkAnswer = function(event) {
 var startQuiz = function() {
     // hide other content
     startPageBody.style.display = "none";
-    quizBody.style.display = "block";
+    quizBody.style.display = "inline-block";
 
     startTimer();
     generateQuestion(currentQuestionIndex);
@@ -155,7 +159,7 @@ var startQuiz = function() {
 
 var gameOver = function() {
     quizBody.style.display = "none";
-    gameOverBody.style.display = "block";
+    gameOverBody.style.display = "inline-block";
     showScoreEl.textContent = "You answered " + playerScore + " question(s) correctly out of " + questionSet.length + "!"; 
     
 }
@@ -186,7 +190,7 @@ var saveScore = function() {
 
 var viewScores = function() {
     gameOverBody.style.display = "none";
-    highScoresBody.style.display = "block";
+    highScoresBody.style.display = "inline-block";
 
     listScoresEl.innerHTML = "";
     for (i = 0; i < highScoresList.length; i++) {
@@ -203,7 +207,7 @@ var clearScore = function() {
 
 var playAgain = function() {
     highScoresBody.style.display = "none";
-    startPageBody.style.display = "block";
+    startPageBody.style.display = "inline-block";
     currentQuestionIndex = 0;
     playerScore = 0;
     timeLeft = 100;
@@ -211,12 +215,13 @@ var playAgain = function() {
 
 var toggleScores = function() {
 
-    if (highScoresBody.style.display === "none") {
-        highScoresBody.style.display = "block";
-    }
-    else if (highScoresBody.style.display === "block") {
+    if (highScoresBody.style.display === "inline-block") {
         highScoresBody.style.display = "none";
     }
+    else if (highScoresBody.style.display === "none") {
+        highScoresBody.style.display = "inline-block";
+    }
+    console.log("this works!");
 }
 
 
@@ -233,5 +238,3 @@ clearScoresButton.addEventListener("click", clearScore);
 playAgainButton.addEventListener("click", playAgain);
 
 viewScoresButton.addEventListener("click", toggleScores);
-
-

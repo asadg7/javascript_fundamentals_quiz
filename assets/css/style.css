@@ -12,6 +12,7 @@ body {
     font-size: 28px;
 }
 
+
 button {
     font-family: "Inconsolata", Helvetica;
     background-color: #f68181;
@@ -20,6 +21,7 @@ button {
     opacity: 80%;
     width: 150px;
     height: 50px;
+    display: inline-block;
 }
 
 button:hover {
@@ -37,6 +39,10 @@ button:hover {
 }
 
 .container #show-timer {
+    margin-bottom: 5%;
+}
+
+.container #show-score {
     margin-bottom: 5%;
 }
 
