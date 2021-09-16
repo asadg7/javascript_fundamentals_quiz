@@ -83,6 +83,10 @@ var playerScore = 0;
 var timeLeft = 100;
 var highScoresList = [];
 
+// document.addEventListener("load", function () {
+//     highScoresBody.style.display = "none";
+// });
+
 
 // Timer function
 var startTimer = function() {
@@ -210,12 +214,13 @@ var playAgain = function() {
 
 var toggleScores = function() {
 
-    if (highScoresBody.style.display === "none") {
-        highScoresBody.style.display = "block";
-    }
-    else if (highScoresBody.style.display === "block") {
+    if (highScoresBody.style.display === "block") {
         highScoresBody.style.display = "none";
     }
+    else if (highScoresBody.style.display === "none") {
+        highScoresBody.style.display = "block";
+    }
+    console.log("this works!");
 }
 
 
@@ -232,5 +237,4 @@ clearScoresButton.addEventListener("click", clearScore);
 playAgainButton.addEventListener("click", playAgain);
 
 viewScoresButton.addEventListener("click", toggleScores);
-
 
