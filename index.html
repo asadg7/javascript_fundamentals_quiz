@@ -1,65 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test Your Knowledge</title>
-    <!-- Adding custom fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@600&display=swap" rel="stylesheet">
-    <!-- Adding Project Stylesheet -->
-    <link rel="stylesheet" href="./assets/css/style.css"/>
-</head>
-<body>
     
-    <!-- Setting up Nav Bar with View High Scores Button -->
-    <nav>
-        <button id="btn-high-scores">View High Scores</button>
-    </nav>
-    <!-- Main Container that holds subsections for the quiz -->
-    <main class="container">
-        
-        <!-- Homepage section that displays to the user on load -->
-        <section id="start-page">
-            <h1>Javascript Fundamentals Quiz</h1>
-            <p>
-                This quiz consists of 6 questions. You will have <span id="red-2">100</span> seconds to complete all questions.</br> 
-                If you answer a question incorrectly, 10 seconds will be deducted from the timer. Good Luck!
-            </p>
-            <!-- Insert button to start the quiz -->
-            <button id="btn-start">Start!</button>
-        </section>
-        
-        <!-- Quiz Game Section that displays upon Start! Button -->
-        <section id="quiz">
-            <div id="show-timer">Time Remaining: <span id="red">100</span></div>
-            <div><p id="show-questions">placeholder text</p></div>
-            <button id="answer-1">1</button>
-            <button id="answer-2">2</button>
-            <button id="answer-3">3</button>
-            <button id="answer-4">4</button>
-            <div id="question-result"></div>
-        </section>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Test Your Knowledge</title>
+        <!-- Adding custom fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@600&display=swap" rel="stylesheet">
+        <!-- Adding Project Stylesheet -->
+        <link rel="stylesheet" href="./assets/css/style.css"/>
+    </head>
 
-        <!-- Game Over Section that displays upon Quiz Finish -->
-        <section id="game-over">
-            <div id="show-score">Your Score: </div>
-            <input type="text" placeholder="Enter your name or initials" name="player-name" id="player-initials"/>
-            <button id="save-score">Save your score!</button>
-        </section>
+    <body>
+        
+        <!-- Setting up Nav Bar with View High Scores Button -->
+        <nav>
+            <button id="btn-high-scores">View High Scores</button>
+        </nav>
+        
+        <!-- Main Container that holds subsections for the quiz -->
+        <main class="container">
+            
+            <!-- Homepage section that displays to the user on load -->
+            <section id="start-page">
+                <div>
+                    <h1>Javascript Fundamentals Quiz</h1>
+                    <p>
+                        This quiz consists of 6 questions. You will have <span id="red-2">100</span> seconds to complete all questions.</br> 
+                        If you answer a question incorrectly, 10 seconds will be deducted from the timer. Good Luck!
+                    </p>
+                    <!-- Insert button to start the quiz -->
+                    <button id="btn-start">Start!</button>
+                <div>
+            </section>
+            
+            <!-- Quiz Game Section that displays upon Start! Button -->
+            <section id="quiz">
+                <div>
+                    <h2 id="show-timer">Time Remaining: <span id="red">100</span></h2>
+                    <div><p id="show-questions">placeholder text</p></div>
+                    <button id="answer-1">1</button>
+                    <button id="answer-2">2</button>
+                    <button id="answer-3">3</button>
+                    <button id="answer-4">4</button>
+                    <div id="question-result"></div>
+                <div>
+            </section>
 
-        <!-- High Scores Section that displays upon Save Score Button or View High Scores Button in Nav -->
-        <section id="high-scores">
-            <h2>High Scores</h2>
-            <ol id="list-scores"></ol>
-            <button id="play-again">Play Again!</button>
-            <button id="clear-scores">Clear High Scores</button>
-        </section>
-    
-    </main>
-    
-    <script src="./assets/js/script.js"></script>
-</body>
+            <!-- Game Over Section that displays upon Quiz Finish -->
+            <section id="game-over">
+                <div>
+                    <h3>Game Over!</h3>
+                    <div id="show-score">Your Score: </div>
+                    <input type="text" placeholder="Enter your name or initials" name="player-name" id="player-initials"/>
+                    <button id="save-score">Save your score!</button>
+                </div>
+            </section>
+
+            <!-- High Scores Section that displays upon Save Score Button or View High Scores Button in Nav -->
+            <section id="high-scores">
+                <div>
+                    <h4>High Scores</h4>
+                    <ol id="list-scores">
+                        <!-- <li>'s will be appended here in javascript -->
+                    </ol>
+                    <button id="play-again">Play Again!</button>
+                    <button id="clear-scores">Clear High Scores</button>
+                <div>
+            </section>
+        
+        </main>
+        
+        <script src="./assets/js/script.js"></script>
+
+    </body>
+
 </html>

@@ -119,6 +119,7 @@ var startTimer = function() {
     }, 1000);
 }
 
+// Function used to generate the question and display the content of each object to the user
 var generateQuestion = function(count) {
 
     if (count < copyArray.length) {
@@ -133,6 +134,7 @@ var generateQuestion = function(count) {
     }
 }
 
+// Function used to determine if what the user clicked on is the correct answer
 var checkAnswer = function(event) {
     event.preventDefault();
 
@@ -156,24 +158,24 @@ var checkAnswer = function(event) {
     generateQuestion(currentQuestionIndex);
 }
 
+// Function used to Start the Quiz
 var startQuiz = function() {
-    // hide other content
     startPageBody.style.display = "none";
-    quizBody.style.display = "block";
+    quizBody.style.display = "flex";
 
     startTimer();
     randomizeArray(copyArray);
     generateQuestion(currentQuestionIndex);
-
 }
 
+// Function used to End the Quiz
 var gameOver = function() {
     quizBody.style.display = "none";
-    gameOverBody.style.display = "block";
+    gameOverBody.style.display = "flex";
     showScoreEl.textContent = "You answered " + playerScore + " question(s) correctly out of " + copyArray.length + "!"; 
-    
 }
 
+// Function used to have player input their name and add their score
 var addScore = function() {
 
     if (playerInput.value === "") {
@@ -194,13 +196,15 @@ var addScore = function() {
     viewScores();
 }
 
+// Function to save the player's scores to a list
 var saveScore = function() {
     localStorage.setItem("Player's High Scores", JSON.stringify(highScoresList));
 }
 
+// Function used to go to the high scores page and display the list of all the player's persisted scores
 var viewScores = function() {
     gameOverBody.style.display = "none";
-    highScoresBody.style.display = "block";
+    highScoresBody.style.display = "flex";
 
     listScoresEl.innerHTML = "";
     for (i = 0; i < highScoresList.length; i++) {
@@ -210,32 +214,35 @@ var viewScores = function() {
     }
 }
 
+// function to delete all player scores from storage
 var clearScore = function() {
     localStorage.clear();
     listScoresEl.innerHTML = "";
 }
 
+// Function for the player to play again and reset all the necessary variables back to their starting position
 var playAgain = function() {
     highScoresBody.style.display = "none";
-    startPageBody.style.display = "block";
+    startPageBody.style.display = "flex";
     currentQuestionIndex = 0;
     playerScore = 0;
     timeLeft = 100;
     redNumber.textContent = "100";
-    
+    playerInput.value = "";
 }
 
+// Function used for the player to toggle the high scores page on or off when clicked
 var toggleScores = function() {
 
-    if (highScoresBody.style.display === "block") {
+    if (highScoresBody.style.display === "flex") {
         highScoresBody.style.display = "none";
     }
-    else if (highScoresBody.style.display === "none") {
-        highScoresBody.style.display = "block";
+    else {
+        highScoresBody.style.display = "flex";
     }
-    console.log("this works!");
 }
 
+// Adding event listeners to all necessary buttons
 
 startButton.addEventListener("click", startQuiz);
 answerButton1.addEventListener("click", checkAnswer);
