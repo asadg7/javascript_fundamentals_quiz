@@ -11,6 +11,8 @@ var viewScoresButton = document.getElementById("btn-high-scores");
 var quizBody = document.getElementById("quiz");
 // Div that displays the timer
 var timerEl = document.getElementById("show-timer");
+// Span that displays the numerical timer
+var redNumber = document.getElementById("red");
 // Div that displays the question
 var questionsEl = document.getElementById("show-questions");
 // Button for answer 1
@@ -41,6 +43,12 @@ var listScoresEl = document.getElementById("list-scores");
 var playAgainButton = document.getElementById("play-again");
 // Button to delete all saved scores
 var clearScoresButton = document.getElementById("clear-scores");
+
+// Global variables
+var currentQuestionIndex = 0;
+var playerScore = 0;
+var timeLeft = 100;
+var highScoresList = [];
 
 // Main Array of Objects
 var questionSet = [
@@ -77,27 +85,28 @@ var questionSet = [
     }
 ]
 
-// Global variables
-var currentQuestionIndex = 0;
-var playerScore = 0;
-var timeLeft = 100;
-var highScoresList = [];
+// Copy of Main Array for Randomization
+var copyArray = questionSet.slice();
 
-// document.addEventListener("load", function () {
-//     highScoresBody.style.display = "none";
-// });
-
+// Randomize Array function
+var randomizeArray = function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1)); // random index from 0 to i
+  
+      // swap elements array[i] and array[j]
+      [array[i], array[j]] = [array[j], array[i]];
+    }
+}
 
 // Timer function
 var startTimer = function() {
 
     var timeInterval = setInterval(function() {
-        if (currentQuestionIndex === questionSet.length) {
+        if (currentQuestionIndex === copyArray.length) {
             clearInterval(timeInterval);
         }
         else if (timeLeft >= 1) {
             timeLeft--;
-            var redNumber = document.getElementById("red");
             redNumber.textContent = timeLeft;
         }
         else if (timeLeft === 0) {
@@ -112,12 +121,12 @@ var startTimer = function() {
 
 var generateQuestion = function(count) {
 
-    if (count < questionSet.length) {
-        questionsEl.textContent = questionSet[count].question;
-        answerButton1.textContent = questionSet[count].answers[0];
-        answerButton2.textContent = questionSet[count].answers[1];
-        answerButton3.textContent = questionSet[count].answers[2];
-        answerButton4.textContent = questionSet[count].answers[3];
+    if (count < copyArray.length) {
+        questionsEl.textContent = copyArray[count].question;
+        answerButton1.textContent = copyArray[count].answers[0];
+        answerButton2.textContent = copyArray[count].answers[1];
+        answerButton3.textContent = copyArray[count].answers[2];
+        answerButton4.textContent = copyArray[count].answers[3];
     }
     else {
         gameOver();
@@ -131,16 +140,16 @@ var checkAnswer = function(event) {
         questionResultEl.innerHTML = "";
     }, 1000);
 
-    if (questionSet[currentQuestionIndex].correctAnswer === event.target.textContent) {
+    if (copyArray[currentQuestionIndex].correctAnswer === event.target.textContent) {
         questionResultEl.innerHTML = "<p>Correct!</p>";
         playerScore++;
     }
-    else if (questionSet[currentQuestionIndex].correctAnswer !== event.target.textContent) {
+    else if (copyArray[currentQuestionIndex].correctAnswer !== event.target.textContent) {
         questionResultEl.innerHTML = "<p>Incorrect. Minus <span id='red-2'>10</span> seconds</p>";
         timeLeft = timeLeft - 10;
     }
 
-    if (currentQuestionIndex < questionSet.length) {
+    if (currentQuestionIndex < copyArray.length) {
         currentQuestionIndex++;
     }
 
@@ -150,17 +159,18 @@ var checkAnswer = function(event) {
 var startQuiz = function() {
     // hide other content
     startPageBody.style.display = "none";
-    quizBody.style.display = "inline-block";
+    quizBody.style.display = "block";
 
     startTimer();
+    randomizeArray(copyArray);
     generateQuestion(currentQuestionIndex);
 
 }
 
 var gameOver = function() {
     quizBody.style.display = "none";
-    gameOverBody.style.display = "inline-block";
-    showScoreEl.textContent = "You answered " + playerScore + " question(s) correctly out of " + questionSet.length + "!"; 
+    gameOverBody.style.display = "block";
+    showScoreEl.textContent = "You answered " + playerScore + " question(s) correctly out of " + copyArray.length + "!"; 
     
 }
 
@@ -190,7 +200,7 @@ var saveScore = function() {
 
 var viewScores = function() {
     gameOverBody.style.display = "none";
-    highScoresBody.style.display = "inline-block";
+    highScoresBody.style.display = "block";
 
     listScoresEl.innerHTML = "";
     for (i = 0; i < highScoresList.length; i++) {
@@ -207,27 +217,21 @@ var clearScore = function() {
 
 var playAgain = function() {
     highScoresBody.style.display = "none";
-    startPageBody.style.display = "inline-block";
+    startPageBody.style.display = "block";
     currentQuestionIndex = 0;
     playerScore = 0;
     timeLeft = 100;
+    redNumber.textContent = "100";
+    
 }
 
 var toggleScores = function() {
 
-<<<<<<< HEAD
     if (highScoresBody.style.display === "block") {
         highScoresBody.style.display = "none";
     }
     else if (highScoresBody.style.display === "none") {
         highScoresBody.style.display = "block";
-=======
-    if (highScoresBody.style.display === "inline-block") {
-        highScoresBody.style.display = "none";
-    }
-    else if (highScoresBody.style.display === "none") {
-        highScoresBody.style.display = "inline-block";
->>>>>>> css
     }
     console.log("this works!");
 }
@@ -245,9 +249,4 @@ clearScoresButton.addEventListener("click", clearScore);
 
 playAgainButton.addEventListener("click", playAgain);
 
-<<<<<<< HEAD
 viewScoresButton.addEventListener("click", toggleScores);
-
-=======
-viewScoresButton.addEventListener("click", toggleScores);
->>>>>>> css
