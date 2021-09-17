@@ -140,15 +140,15 @@ var checkAnswer = function(event) {
 
     setTimeout(function() {
         questionResultEl.innerHTML = "";
-    }, 1000);
+    }, 1500);
 
     if (copyArray[currentQuestionIndex].correctAnswer === event.target.textContent) {
-        questionResultEl.innerHTML = "<p>Correct!</p>";
         playerScore++;
+        questionResultEl.innerHTML = "<p>Correct! Current Score: " + playerScore + "/6 </p>"
     }
     else if (copyArray[currentQuestionIndex].correctAnswer !== event.target.textContent) {
-        questionResultEl.innerHTML = "<p>Incorrect. Minus <span id='red-2'>10</span> seconds</p>";
         timeLeft = timeLeft - 10;
+        questionResultEl.innerHTML = "<p>Incorrect. Minus <span id='red-2'>10</span> seconds</p>";
     }
 
     if (currentQuestionIndex < copyArray.length) {
@@ -205,6 +205,11 @@ var saveScore = function() {
 var viewScores = function() {
     gameOverBody.style.display = "none";
     highScoresBody.style.display = "flex";
+    
+    // Sort the High Scores Array to display the highest scores first
+    highScoresList.sort(function(a,b) {
+        return b.score - a.score;
+    });
 
     listScoresEl.innerHTML = "";
     for (i = 0; i < highScoresList.length; i++) {
@@ -231,14 +236,34 @@ var playAgain = function() {
     playerInput.value = "";
 }
 
+// Function to generate the list if player wants to view scores on homepage
+
+var generateList = function() {
+    highScoresList = JSON.parse(localStorage.getItem("Player's High Scores")) || [];
+    
+    saveScore();
+
+    viewScores();
+}
+
 // Function used for the player to toggle the high scores page on or off when clicked
 var toggleScores = function() {
 
     if (highScoresBody.style.display === "flex") {
-        highScoresBody.style.display = "none";
+        alert("You are currently viewing high scores.")
+        return;
+    }
+    else if (quizBody.style.display === "flex") {
+        alert("You cannot view high scores during the quiz");
+        return;
+    }
+    else if (gameOverBody.style.display === "flex") {
+        alert("Please save your score before viewing high scores");
+        return;
     }
     else {
-        highScoresBody.style.display = "flex";
+        startPageBody.style.display = "none";
+        generateList();
     }
 }
 
