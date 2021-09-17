@@ -30,7 +30,27 @@ https://asadg7.github.io/javascript_fundamentals_quiz/
 
 ### Description
 
+This website serves as a quiz testing the user on javascript fundamentals. The quiz consists of 6 questions with 4 multiple choice answers for each question. There is a timer of 100 seconds to complete the quiz. Every incorrect answer to a question will subtract 10 seconds from the user's time. If a user runs out of the time, the game is over.
+
+The user can save and view their score when finished and the scores will persist into Local Storage.
+
 ### Screenshots
+
+Screenshot of the website on initial page load/home page.
+
+![](./assets/images/pageload.PNG)
+
+Screenshot of the website during the quiz.
+
+![](./assets/images/quiz.PNG)
+
+Screenshot of the website when the quiz is over.
+
+![](./assets/images/gameover.PNG)
+
+Screenshot of the website when viewing High Scores.
+
+![](./assets/images/highscores.PNG)
 
 ### License
 
